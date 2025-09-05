@@ -1,0 +1,6 @@
+- Functional Programming in C++, Ivan Cukic
+	- https://amazon.com/Functional-Programming-programs-functional-techniques/dp/1617293814/
+- Pretty State Machine Patterns in Rust, Hover Bear
+	- https://hoverbear.org/blog/rust-state-machine-pattern/
+- Improve Your Rust APIs with Type State Pattern, Let's Get Rusty
+	- https://youtu.be/_ccDqRTx-JU 
