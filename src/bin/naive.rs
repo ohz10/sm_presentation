@@ -1,6 +1,6 @@
 type Score = u8;
 
-#[derive(Clone,Debug)]
+#[derive(Debug)]
 enum Player {
 	Player1,
 	Player2,
@@ -19,7 +19,7 @@ impl Game {
 		self.score.0 >= 3 && self.score.1 >=3
 	}
 
-	fn on_duece(self: &mut Self) -> Option<Player> {
+	fn on_duece(self: &Self) -> Option<Player> {
 		if self.score.0 >= self.score.1 + 2 {
 			return Some(Player::Player1);
 		}
@@ -28,11 +28,15 @@ impl Game {
 			return Some(Player::Player2);
 		}
 
-		print!("duece: ");
 		return None;
 	}
 
-	fn if_winner(self: &mut Self) -> Option<Player> {
+	fn point(self: &mut Self, player: &Player) -> Option<Player> {
+		match player {
+			Player::Player1 => self.score.0 += 1,
+			Player::Player2 => self.score.1 += 1,
+		}
+
 		if self.is_duece() {
 			return self.on_duece();
 		}
@@ -48,18 +52,21 @@ impl Game {
 		return None;
 	}
 
-	fn point(self: &mut Self, player: &Player) -> Option<Player> {
-		match player {
-			Player::Player1 => self.score.0 += 1,
-			Player::Player2 => self.score.1 += 1,
+	fn play(self: &mut Self, points: &[Player]) -> Option<Player> {
+		for point in points.iter() {
+			let winner = self.point(point);
+
+			println!("{0:#?}, {1:#?}", self.score.0, self.score.1);
+			if winner.is_some() {
+				return winner;
+			}
 		}
 
-		self.if_winner()
+		None
 	}
 }
 
 fn main() {
-	let mut game = Game::new();
 	let points = [
 		  Player::Player1
 		, Player::Player2
@@ -70,14 +77,12 @@ fn main() {
 		, Player::Player1
 		, Player::Player1
 	];
-
-	for point in points.iter() {
-		let winner = game.point(point);
-		match winner {
-			Some(Player::Player1) => println!("Player 1 wins {0} to {1}", game.score.0, game.score.1),
-			Some(Player::Player2) => println!("Player 2 wins {1} to {0}", game.score.0, game.score.1),
-			None => println!("{0} to {1}", game.score.0, game.score.1),
-		}
+	let mut game = Game::new();
+	let winner = game.play(&points);
+	match winner {
+		Some(Player::Player1) => println!("Player 1 wins!"),
+		Some(Player::Player2) => println!("Player 2 wins!"),
+		None => println!("No winner"),
 	}
 }
 
