@@ -122,8 +122,6 @@ impl Game {
     }
 
     fn point(self: &mut Self, player: Player) -> GameState {
-        // **************
-        // TODO: can I use a trait here?
         match (&mut self.state, player) {
             (GameState::RegularScoring(s), _) => s.point(player),
             (GameState::Duece(s), _) => s.point(player),
