@@ -487,8 +487,8 @@ fn main() {
     let game = Game::new();
     let winner = game.play(&points);
     match winner {
-        Ok(Some(_)) => {}
         Ok(None) => println!("No winner, incomplete game."),
         Err(msg) => println!("{msg}"),
+        _ => {},
     }
 }
