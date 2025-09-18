@@ -69,7 +69,7 @@ impl AdvantageState {
 }
 
 #[derive(Clone, Copy)]
-struct DueceState {}
+struct DueceState;
 
 impl DueceState {
     fn point(self, player: Player) -> GameState {
