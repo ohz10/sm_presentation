@@ -1,4 +1,3 @@
-
 pub struct Stack {
     stack: [char; 4],
     index: usize,
@@ -12,16 +11,16 @@ impl Stack {
     // returns None on success
     pub fn push(self: &mut Self, c: char) -> Option<String> {
         match self.index {
-            usize::MAX => {
-                self.index = 0;
-                self.stack[self.index] = c;
-                None
-            },
             0..3 => {
                 self.index += 1;
                 self.stack[self.index] = c;
                 None
             }, 
+            usize::MAX => {
+                self.index = 0;
+                self.stack[self.index] = c;
+                None
+            },
             _ => Some(String::from("stack overflow")),
         }
     }
