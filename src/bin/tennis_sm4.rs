@@ -42,7 +42,7 @@ impl RegularScoringState {
         };
 
         if Score::Forty == self.score.0 && self.score.0 == self.score.1 {
-            return GameState::Duece(DueceState {});
+            return GameState::Duece(DueceState);
         }
 
         GameState::RegularScoring(RegularScoringState { score: self.score })
@@ -64,7 +64,7 @@ impl AdvantageState {
             return GameState::GameOver(GameOverState::new(player));
         }
 
-        GameState::Duece(DueceState {})
+        GameState::Duece(DueceState)
     }
 }
 
