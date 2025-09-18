@@ -17,7 +17,7 @@ impl Score {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 enum Player {
     Player1,
     Player2,
@@ -41,18 +41,9 @@ impl Game {
     }
 
     fn advantage(self: &mut Self, player: &Player) -> Option<Player> {
-        match player {
-            Player::Player1 => {
-                println!("Advantage Player 1");
-                self.advantage = Some(Player::Player1);
-                Some(Player::Player1)
-            }
-            Player::Player2 => {
-                println!("Advantage Player 2");
-                self.advantage = Some(Player::Player2);
-                Some(Player::Player2)
-            }
-        }
+        println!("Advantage {player:#?}");
+        self.advantage = Some(*player);
+        self.advantage
     }
 
     fn on_duece(self: &mut Self, point: &Player) -> Option<Player> {
@@ -125,8 +116,7 @@ fn main() {
     let mut game = Game::new();
     let winner = game.play(&points);
     match winner {
-        Some(Player::Player1) => println!("Player 1 wins!"),
-        Some(Player::Player2) => println!("Player 2 wins!"),
+        Some(p) => println!("{p:#?} wins!"),
         None => println!("No winner"),
     }
 }

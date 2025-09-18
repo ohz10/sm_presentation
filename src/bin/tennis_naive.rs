@@ -77,11 +77,11 @@ fn main() {
         Player::Player1,
         Player::Player1,
     ];
+
     let mut game = Game::new();
     let winner = game.play(&points);
     match winner {
-        Some(Player::Player1) => println!("Player 1 wins!"),
-        Some(Player::Player2) => println!("Player 2 wins!"),
+        Some(p) => println!("{p:#?} wins!"),
         None => println!("No winner"),
     }
 }
