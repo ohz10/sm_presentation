@@ -5,7 +5,10 @@ pub struct Stack {
 
 impl Stack {
     pub fn new() -> Stack {
-        Stack{ stack: ['\0';4], index: usize::MAX }
+        Stack {
+            stack: ['\0'; 4],
+            index: usize::MAX,
+        }
     }
 
     // returns None on success
@@ -15,12 +18,12 @@ impl Stack {
                 self.index += 1;
                 self.stack[self.index] = c;
                 None
-            }, 
+            }
             usize::MAX => {
                 self.index = 0;
                 self.stack[self.index] = c;
                 None
-            },
+            }
             _ => Some(String::from("stack overflow")),
         }
     }
@@ -44,4 +47,3 @@ impl Stack {
         self.index
     }
 }
-

@@ -489,6 +489,6 @@ fn main() {
     match winner {
         Ok(None) => println!("No winner, incomplete game."),
         Err(msg) => println!("{msg}"),
-        _ => {},
+        _ => {}
     }
 }

@@ -1,6 +1,6 @@
 use sm_presentation::Stack;
 
-#[derive(Clone,Copy,Debug)]
+#[derive(Clone, Copy, Debug)]
 enum Protocol {
     Http,
     Https,
@@ -13,7 +13,10 @@ struct Url {
 
 impl Url {
     fn new() -> Url {
-        Url{ proto: Protocol::Http, path: "".into() }
+        Url {
+            proto: Protocol::Http,
+            path: "".into(),
+        }
     }
 }
 
@@ -73,20 +76,20 @@ impl Parser {
                 Some('p') => {
                     self.stack.pop_all();
                     self.state = State::Slash;
-                },
+                }
                 Some('s') => {
                     self.stack.pop_all();
                     self.url.proto = Protocol::Https;
                     self.state = State::Slash;
-                },
-                _   => {
+                }
+                _ => {
                     self.error = Some(String::from("bad protocol"));
                     self.state = State::Error;
-                },
+                }
             }
         } else {
             match self.stack.push(c) {
-                None => {},
+                None => {}
                 Some(e) => {
                     self.error = Some(e);
                     self.state = State::Error;
@@ -103,20 +106,18 @@ impl Parser {
                 Some('/') => {
                     self.stack.pop_all();
                     self.state = State::Domain;
-                },
-                None => {
-                    match self.stack.push(c) {
-                        None => {},
-                        Some(e) => {
-                            self.error = Some(e);
-                            self.state = State::Error;
-                        },
+                }
+                None => match self.stack.push(c) {
+                    None => {}
+                    Some(e) => {
+                        self.error = Some(e);
+                        self.state = State::Error;
                     }
                 },
                 _ => {
                     self.error = Some(String::from("invalid url"));
                     self.state = State::Error;
-                },
+                }
             }
         }
 
@@ -133,8 +134,12 @@ impl Parser {
 
     fn path_state(mut self, c: char) -> Self {
         match c {
-            '?'  => { self.state = State::Done; },
-             _   => { self.url.path.push(c); },
+            '?' => {
+                self.state = State::Done;
+            }
+            _ => {
+                self.url.path.push(c);
+            }
         }
         self
     }
@@ -180,7 +185,7 @@ impl Parser {
 }
 
 fn main() {
-    let urls = vec![ 
+    let urls = vec![
         String::from("http://fast.parser.io/file/1"),
         String::from("https://fast.parser.io/file/2"),
         String::from("http://parser.io/another/path?query=abc"),
@@ -197,4 +202,3 @@ fn main() {
         }
     }
 }
-
