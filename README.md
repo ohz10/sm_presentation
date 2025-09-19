@@ -3,7 +3,7 @@
 A presentation which introduces a few different techniques for implementing state machines in Rust.
 
 - tennis kata
-    - naive implementation
+    - [naive implementation](src/bin/naive.rs)
     - naive implementation using enumeration for score
     - a state machine solution
         - fixing problems with naive solution
