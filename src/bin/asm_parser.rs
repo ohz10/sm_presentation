@@ -180,7 +180,6 @@ impl Parser {
             self = self.states[self.state.to_index()](self, c);
         }
 
-        self.state = State::Done;
         self
     }
 }
