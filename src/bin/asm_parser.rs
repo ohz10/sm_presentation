@@ -66,7 +66,7 @@ impl Parser {
             return self;
         }
 
-        self.error = Some(String::from("bad protocol"));
+        self.error = Some("bad protocol".into());
         self.state = State::Error;
         self
     }
@@ -84,7 +84,7 @@ impl Parser {
                     self.state = State::Slash;
                 }
                 _ => {
-                    self.error = Some(String::from("bad protocol"));
+                    self.error = Some("bad protocol".into());
                     self.state = State::Error;
                 }
             }
@@ -116,7 +116,7 @@ impl Parser {
                     }
                 },
                 _ => {
-                    self.error = Some(String::from("invalid url"));
+                    self.error = Some("invalid url".into());
                     self.state = State::Error;
                 }
             }
@@ -185,11 +185,11 @@ impl Parser {
 }
 
 fn main() {
-    let urls = vec![
-        String::from("http://fast.parser.io/file/1"),
-        String::from("https://fast.parser.io/file/2"),
-        String::from("http://parser.io/another/path?query=abc"),
-        String::from("ftp://parser.io/another/path"),
+    let urls: Vec<String> = vec![
+        "http://fast.parser.io/file/1".into(),
+        "https://fast.parser.io/file/2".into(),
+        "http://parser.io/another/path?query=abc".into(),
+        "ftp://parser.io/another/path".into(),
     ];
 
     for url in urls.iter() {
