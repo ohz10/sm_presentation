@@ -1,6 +1,6 @@
 use sm_presentation::Stack;
 
-#[derive(Clone, Copy, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 enum Protocol {
     Http,
     Https,
