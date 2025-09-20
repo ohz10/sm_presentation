@@ -142,6 +142,7 @@ impl Parser {
                 self.url.path.push(c);
             }
         }
+
         self
     }
 
@@ -185,20 +186,59 @@ impl Parser {
 }
 
 fn main() {
-    let urls: Vec<String> = vec![
-        "http://fast.parser.io/file/1".into(),
-        "https://fast.parser.io/file/2".into(),
-        "http://parser.io/another/path?query=abc".into(),
-        "ftp://parser.io/another/path".into(),
+    // process the URL as it comes asynchronously from the network
+    let url: Vec<String> = vec![
+        "htt".into(),
+        "ps:".into(),
+        "://fast.parser.io".into(),
+        "/path/".into(),
+        "file1".into(),
     ];
 
-    for url in urls.iter() {
-        let mut parser = Parser::new();
-        parser = parser.parse(&url);
+    let mut parser = Parser::new();
+    for part in url.iter() {
+        parser = parser.parse(&part);
+    }
 
-        match parser.error {
-            Some(e) => println!("{e}"),
-            _ => println!("{0:?}: {1}", parser.url.proto, parser.url.path),
-        }
+    match parser.error {
+        Some(e) => println!("{e}"),
+        _ => println!("{0:?}: {1}", parser.url.proto, parser.url.path),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+
+    use crate::Parser;
+    use crate::Protocol;
+
+    #[test]
+    fn test_urls() {
+        let mut parser = Parser::new();
+        parser = parser.parse(&"http://fast.parser.io/file/1".into());
+
+        assert!(parser.error.is_none());
+        assert_eq!(Protocol::Http, parser.url.proto);
+        assert_eq!(String::from("file/1"), parser.url.path);
+
+        let mut parser = Parser::new();
+        parser = parser.parse(&"https://fast.parser.io/file/2".into());
+
+        assert!(parser.error.is_none());
+        assert_eq!(Protocol::Https, parser.url.proto);
+        assert_eq!(String::from("file/2"), parser.url.path);
+
+        let mut parser = Parser::new();
+        parser = parser.parse(&"http://parser.io/another/path?query=abc".into());
+
+        assert!(parser.error.is_none());
+        assert_eq!(Protocol::Http, parser.url.proto);
+        assert_eq!(String::from("another/path"), parser.url.path);
+
+        let mut parser = Parser::new();
+        parser = parser.parse(&"ftp://parser.io/another/path".into());
+
+        assert!(parser.error.is_some());
+        assert_eq!(String::from("bad protocol"), parser.error.unwrap());
     }
 }
