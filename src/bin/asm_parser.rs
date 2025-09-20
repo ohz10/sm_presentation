@@ -79,8 +79,8 @@ impl Parser {
                     self.state = State::Slash;
                 }
                 Some('s') => {
-                    self.stack.pop_all();
                     self.url.proto = Protocol::Https;
+                    self.stack.pop_all();
                     self.state = State::Slash;
                 }
                 _ => {
