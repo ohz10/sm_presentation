@@ -11,20 +11,19 @@ impl Stack {
         }
     }
 
-    // returns None on success
-    pub fn push(self: &mut Self, c: char) -> Option<String> {
+    pub fn push(self: &mut Self, c: char) -> Result<(), String> {
         match self.index {
             0..3 => {
                 self.index += 1;
                 self.stack[self.index] = c;
-                None
+                Ok(())
             }
             usize::MAX => {
                 self.index = 0;
                 self.stack[self.index] = c;
-                None
+                Ok(())
             }
-            _ => Some(String::from("stack overflow")),
+            _ => Err("stack overflow".into()),
         }
     }
 

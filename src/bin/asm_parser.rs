@@ -57,6 +57,7 @@ struct Parser {
     error: Option<String>,
 }
 
+// TODO: if I pull the state functions out of Parser into its own object
 type StateFunc = fn(parser: Parser, c: char) -> Parser;
 impl Parser {
     fn init_state(mut self, c: char) -> Self {
@@ -89,8 +90,8 @@ impl Parser {
             }
         } else {
             match self.stack.push(c) {
-                None => {}
-                Some(e) => {
+                Ok(_) => {}
+                Err(e) => {
                     self.error = Some(e);
                     self.state = State::Error;
                 }
@@ -108,8 +109,8 @@ impl Parser {
                     self.state = State::Domain;
                 }
                 None => match self.stack.push(c) {
-                    None => {}
-                    Some(e) => {
+                    Ok(_) => {}
+                    Err(e) => {
                         self.error = Some(e);
                         self.state = State::Error;
                     }
