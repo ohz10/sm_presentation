@@ -57,7 +57,6 @@ struct Parser {
     error: Option<String>,
 }
 
-// TODO: if I pull the state functions out of Parser into its own object
 type StateFunc = fn(parser: Parser, c: char) -> Parser;
 impl Parser {
     fn init_state(mut self, c: char) -> Self {
