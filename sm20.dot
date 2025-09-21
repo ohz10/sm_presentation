@@ -1,0 +1,95 @@
+# Tennis Kata: 20-state state machine
+digraph Tennis {
+    node [shape="circle"];
+    rankdir=LR;
+
+    Init[label="",width=0.01];
+    LoveLove [label="Love, Love"];
+
+    FifteenLove [label="Fifteen, Love"];
+    LoveFifteen [label="Love, Fifteen"];
+    FifteenFifteen [label="Fifteen, Fifteen"];
+
+    ThirtyLove [label="Thirty, Love"];
+    ThirtyFifteen [label="Thirty, Fifteen"];
+    ThirtyThirty [label="Thirty, Thirty"];
+    FifteenThirty [label="Fifteen, Thirty"];
+    LoveThirty [label="Love, Thirty"];
+
+    FortyLove [label="Forty, Love"];
+    FortyFifteen [label="Forty, Fifteen"];
+    FortyThirty [label="Forty, Thirty"];
+    
+    ThirtyForty [label="Thirty, Forty"];
+    FifteenForty [label="Fifteen, Forty"];
+    LoveForty [label="Love, Forty"];
+
+    Duece [label="Duece"];
+    AdvantagePlayer1 [label="Adv Player 1"];
+    AdvantagePlayer2 [label="Adv Player 2"];
+
+    GamePlayer1 [label="Game Player 1"];
+    GamePlayer2 [label="Game Player 2"];
+    Error [label="Error"];
+
+    Init -> LoveLove;
+    LoveLove -> FifteenLove [label="p1"];
+    LoveLove -> LoveFifteen [label="p2"];
+
+    FifteenLove -> ThirtyLove [label="p1"];
+    FifteenLove -> FifteenFifteen [label="p2"];
+
+    LoveFifteen -> FifteenFifteen [label="p1"];
+    LoveFifteen -> LoveThirty [label="p2"];
+
+    FifteenFifteen -> ThirtyFifteen [label="p1"];
+    FifteenFifteen -> FifteenThirty [label="p2"];
+
+    ThirtyLove -> FortyLove [label="p1"];
+    ThirtyLove -> ThirtyFifteen [label="p2"];
+
+    ThirtyFifteen -> FortyFifteen [label="p1"];
+    ThirtyFifteen -> ThirtyThirty [label="p2"];
+
+    ThirtyThirty -> FortyThirty [label="p1"];
+    ThirtyThirty -> ThirtyForty [label="p2"];
+
+    FifteenThirty -> ThirtyThirty [label="p1"];
+    FifteenThirty -> FifteenForty [label="p2"];
+
+    LoveThirty -> FifteenThirty [label="p1"];
+    LoveThirty -> LoveForty [label="p2"];
+
+    FortyLove -> GamePlayer1 [label="p1"];
+    FortyLove -> FortyFifteen [label="p2"];
+
+    FortyFifteen -> GamePlayer1 [label="p1"];
+    FortyFifteen -> FortyThirty [label="p2"];
+
+    FortyThirty -> GamePlayer1 [label="p1"];
+    FortyThirty -> Duece [label="p2"];
+
+    ThirtyForty -> Duece [label="p1"];
+    ThirtyForty -> GamePlayer2 [label="p2"];
+
+    FifteenForty -> ThirtyForty [label="p1"];
+    FifteenForty -> GamePlayer2 [label="p2"];
+
+    LoveForty -> FifteenForty [label="p1"];
+    LoveForty -> GamePlayer2 [label="p2"];
+
+    Duece -> AdvantagePlayer1 [label="p1"];
+    Duece -> AdvantagePlayer2 [label="p2"];
+
+    AdvantagePlayer1 -> GamePlayer1 [label="p1"];
+    AdvantagePlayer1 -> Duece [label="p2"];
+
+    AdvantagePlayer2 -> Duece [label="p1"];
+    AdvantagePlayer2 -> GamePlayer2 [label="p2"];
+
+    GamePlayer1 -> Error [label="p1"];
+    GamePlayer1 -> Error [label="p2"];
+
+    GamePlayer2 -> Error [label="p1"];
+    GamePlayer2 -> Error [label="p2"];
+}

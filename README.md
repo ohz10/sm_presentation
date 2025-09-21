@@ -18,3 +18,16 @@ A presentation which introduces a few different techniques for implementing stat
 - [asynchronous state machine parser](src/bin/asm_parser.rs)
     - a state machine driven parser
     - uses function pointers to force a jump table
+
+## Tennis Kata Images
+
+Use graphviz to generate images for tennis kata state machines:
+
+    $ circo -Tpng -o sm4.png sm4.dot
+    $ dot -Tpng -o sm20.png sm20.dot
+
+View the images using feh:
+
+    $ feh -Z -F sm4.png
+    $ feh -Z -F sm20.png
+
