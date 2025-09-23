@@ -239,5 +239,12 @@ mod tests {
 
         assert!(parser.error.is_some());
         assert_eq!(String::from("bad protocol"), parser.error.unwrap());
+
+        let mut parser = Parser::new();
+        parser = parser.parse(&"http://username:password@localhost:8080/path/to/resource".into());
+    
+        assert!(parser.error.is_none());
+        assert_eq!(Protocol::Http, parser.url.proto);
+        assert_eq!(String::from("path/to/resource"), parser.url.path);
     }
 }
