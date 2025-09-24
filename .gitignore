@@ -1,6 +1,4 @@
 /target
-*.png
-
 /slides/*.aux
 /slides/*.log
 /slides/*.nav
