@@ -25,9 +25,22 @@ Use graphviz to generate images for tennis kata state machines:
 
     $ circo -Tpng -o sm4.png sm4.dot
     $ dot -Tpng -o sm20.png sm20.dot
+    $ dot -Tpng -o simple.png simple.dot
 
 View the images using feh:
 
     $ feh -Z -F sm4.png
     $ feh -Z -F sm20.png
+    $ feh -Z -f simple.png
 
+## Slides
+
+The slides can be generated using TexMaker.
+
+## Presentation Monitor Configuration
+
+Configure secondary monitor to mirror the main monitor using xrandr:
+
+    $ xrandr --output SECONDARY --same-as PRIMARY
+
+Where SECONDARY is the name of the second monitor and PRIMARY is the name of the primary monitor.
