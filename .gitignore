@@ -1,1 +1,10 @@
 /target
+*.png
+
+/slides/*.aux
+/slides/*.log
+/slides/*.nav
+/slides/*.out
+/slides/*.snm
+/slides/*.gz
+/slides/*.toc
