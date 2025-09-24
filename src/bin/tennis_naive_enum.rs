@@ -7,7 +7,7 @@ enum Score {
 }
 
 impl Score {
-    fn next(self: &Self) -> Self {
+    fn next(&self) -> Self {
         match self {
             Score::Love => Score::Fifteen,
             Score::Fifteen => Score::Thirty,
@@ -36,17 +36,17 @@ impl Game {
         }
     }
 
-    fn is_duece(self: &Self) -> bool {
+    fn is_duece(&self) -> bool {
         Score::Forty == self.score.0 && Score::Forty == self.score.1
     }
 
-    fn advantage(self: &mut Self, player: &Player) -> Option<Player> {
+    fn advantage(&mut self, player: &Player) -> Option<Player> {
         println!("Advantage {player:#?}");
         self.advantage = Some(*player);
         self.advantage
     }
 
-    fn on_duece(self: &mut Self, point: &Player) -> Option<Player> {
+    fn on_duece(&mut self, point: &Player) -> Option<Player> {
         match (&self.advantage, point) {
             (None, _) => self.advantage(point),
             (Some(Player::Player1), Player::Player1) => Some(Player::Player1),
@@ -62,7 +62,7 @@ impl Game {
         }
     }
 
-    fn point(self: &mut Self, player: &Player) -> Option<Player> {
+    fn point(&mut self, player: &Player) -> Option<Player> {
         if self.is_duece() {
             return self.on_duece(&player);
         }
@@ -87,7 +87,7 @@ impl Game {
         }
     }
 
-    fn play(self: &mut Self, points: &[Player]) -> Option<Player> {
+    fn play(&mut self, points: &[Player]) -> Option<Player> {
         for point in points.iter() {
             let winner = self.point(point);
             if winner.is_some() {

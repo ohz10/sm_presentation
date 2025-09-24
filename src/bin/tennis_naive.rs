@@ -15,11 +15,11 @@ impl Game {
         Game { score: (0, 0) }
     }
 
-    fn is_duece(self: &Self) -> bool {
+    fn is_duece(&self) -> bool {
         self.score.0 >= 3 && self.score.1 >= 3
     }
 
-    fn on_duece(self: &Self) -> Option<Player> {
+    fn on_duece(&self) -> Option<Player> {
         if self.score.0 >= self.score.1 + 2 {
             return Some(Player::Player1);
         }
@@ -31,7 +31,7 @@ impl Game {
         return None;
     }
 
-    fn point(self: &mut Self, player: &Player) -> Option<Player> {
+    fn point(&mut self, player: &Player) -> Option<Player> {
         match player {
             Player::Player1 => self.score.0 += 1,
             Player::Player2 => self.score.1 += 1,
@@ -52,7 +52,7 @@ impl Game {
         return None;
     }
 
-    fn play(self: &mut Self, points: &[Player]) -> Option<Player> {
+    fn play(&mut self, points: &[Player]) -> Option<Player> {
         for point in points.iter() {
             let winner = self.point(point);
 
