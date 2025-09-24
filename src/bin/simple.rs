@@ -1,6 +1,14 @@
+// uses type system to prevent invalid state transitions
+// however, does not account for event type
+
 enum Event {
     E1,
     E2,
+}
+
+trait Transitions {
+    fn event_1(&self) -> State;
+    fn event_2(&self) -> State;
 }
 
 struct S1;
@@ -11,6 +19,36 @@ enum State {
     S1(S1),
     S2(S2),
     S3(S3),
+}
+
+impl Transitions for S1 {
+    fn event_1(&self) -> State {
+        State::S2(self.into())
+    }
+
+    fn event_2(&self) -> State {
+        State::S1(self.into())
+    }
+}
+
+impl Transitions for S2 {
+    fn event_1(&self) -> State {
+        State::S3(self.into())
+    }
+
+    fn event_2(&self) -> State {
+        State::S2(self.into())
+    }
+}
+
+impl Transitions for S3 {
+    fn event_1(&self) -> State {
+        State::S1(self.into())
+    }
+
+    fn event_2(&self) -> State {
+        State::S3(self.into())
+    }
 }
 
 impl From<&S1> for S1 {
@@ -55,10 +93,12 @@ struct StateMachine {
 
 impl StateMachine {
     fn new() -> StateMachine {
-        StateMachine{ state: State::S1(S1{}) }
+        StateMachine {
+            state: State::S1(S1 {}),
+        }
     }
 
-    fn print(self: &Self) {
+    fn print(&self) {
         match self.state {
             State::S1(_) => println!("S1"),
             State::S2(_) => println!("S2"),
@@ -66,17 +106,15 @@ impl StateMachine {
         }
     }
 
-    fn on_event(self: &mut Self, event: Event) {
-        let state: State = match (&self.state, event) {
-            (State::S1(s), Event::E1) => State::S2(s.into()),
-            (State::S1(s), Event::E2) => State::S1(s.into()),
-            (State::S2(s), Event::E1) => State::S3(s.into()),
-            (State::S2(s), Event::E2) => State::S2(s.into()),
-            (State::S3(s), Event::E1) => State::S1(s.into()),
-            (State::S3(s), Event::E2) => State::S3(s.into()),
+    fn on_event(&mut self, event: Event) {
+        self.state = match (&self.state, event) {
+            (State::S1(s), Event::E1) => s.event_1(),
+            (State::S1(s), Event::E2) => s.event_2(),
+            (State::S2(s), Event::E1) => s.event_1(),
+            (State::S2(s), Event::E2) => s.event_2(),
+            (State::S3(s), Event::E1) => s.event_1(),
+            (State::S3(s), Event::E2) => s.event_2(),
         };
-
-        self.state = state;
     }
 }
 
