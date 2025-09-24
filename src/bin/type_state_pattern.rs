@@ -28,21 +28,21 @@ impl Vault<Unlocked> {
         }
     }
 
-    fn get_secret(self: &Self, name: String) -> Option<&String> {
+    fn get_secret(&self, name: String) -> Option<&String> {
         self.secrets.get(&name)
     }
 
-    fn add_secret(self: &mut Self, name: String, value: String) {
+    fn add_secret(&mut self, name: String, value: String) {
         self.secrets.insert(name, value);
     }
 }
 
 impl<State> Vault<State> {
-    fn encryption(self: &Self) -> String {
+    fn encryption(&self) -> String {
         "aes128".into()
     }
 
-    fn version(self: &Self) -> String {
+    fn version(&self) -> String {
         "0.1.0".into()
     }
 }

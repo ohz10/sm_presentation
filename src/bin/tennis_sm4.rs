@@ -7,7 +7,7 @@ enum Score {
 }
 
 impl Score {
-    fn next(self: &Self) -> Self {
+    fn next(&self) -> Self {
         match self {
             Score::Love => Score::Fifteen,
             Score::Fifteen => Score::Thirty,
@@ -110,7 +110,7 @@ impl Game {
         }
     }
 
-    fn winner(self: &Self) -> Option<Player> {
+    fn winner(&self) -> Option<Player> {
         if let GameState::GameOver(GameOverState { winner }) = &self.state {
             return match winner {
                 Player::Player1 => Some(Player::Player1),
@@ -121,7 +121,7 @@ impl Game {
         None
     }
 
-    fn point(self: &mut Self, player: Player) -> GameState {
+    fn point(&mut self, player: Player) -> GameState {
         match (&mut self.state, player) {
             (GameState::RegularScoring(s), _) => s.point(player),
             (GameState::Duece(s), _) => s.point(player),
@@ -130,7 +130,7 @@ impl Game {
         }
     }
 
-    fn play(self: &mut Self, points: &[Player]) -> Option<Player> {
+    fn play(&mut self, points: &[Player]) -> Option<Player> {
         for &point in points.iter() {
             self.state = self.point(point);
 

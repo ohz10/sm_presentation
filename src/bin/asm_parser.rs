@@ -33,7 +33,7 @@ enum State {
 }
 
 impl State {
-    const fn to_index(self: &Self) -> usize {
+    const fn to_index(&self) -> usize {
         match self {
             State::Init => 0,
             State::Proto => 1,
@@ -57,20 +57,19 @@ struct Parser {
     error: Option<String>,
 }
 
-type StateFunc = fn(parser: Parser, c: u8) -> Parser;
+type StateFunc = fn(parser: &mut Parser, c: u8); // -> Parser;
 impl Parser {
-    fn init_state(mut self, c: u8) -> Self {
+    fn init_state(&mut self, c: u8) {
         if c == b'h' {
             self.state = State::Proto;
-            return self;
+            return;
         }
 
         self.error = Some("bad protocol".into());
         self.state = State::Error;
-        self
     }
 
-    fn proto_state(mut self, c: u8) -> Self {
+    fn proto_state(&mut self, c: u8) {
         if c == b':' {
             match self.stack.top() {
                 Some(b'p') => {
@@ -96,11 +95,9 @@ impl Parser {
                 }
             };
         }
-
-        self
     }
 
-    fn slash_state(mut self, c: u8) -> Self {
+    fn slash_state(&mut self, c: u8) {
         if c == b'/' {
             match self.stack.top() {
                 Some(b'/') => {
@@ -120,19 +117,15 @@ impl Parser {
                 }
             }
         }
-
-        self
     }
 
-    fn domain_state(mut self, c: u8) -> Self {
+    fn domain_state(&mut self, c: u8) {
         if c == b'/' {
             self.state = State::Path;
         }
-
-        self
     }
 
-    fn path_state(mut self, c: u8) -> Self {
+    fn path_state(&mut self, c: u8) {
         match c {
             b'?' => {
                 self.state = State::Done;
@@ -141,17 +134,11 @@ impl Parser {
                 self.url.path.push(c as char);
             }
         }
-
-        self
     }
 
-    fn done_state(self, _: u8) -> Parser {
-        self
-    }
+    fn done_state(&mut self, _: u8) {}
 
-    fn error_state(self, _c: u8) -> Parser {
-        self
-    }
+    fn error_state(&mut self, _c: u8) {}
 
     fn new_states() -> [StateFunc; State::Size.to_index()] {
         [
@@ -175,12 +162,10 @@ impl Parser {
         }
     }
 
-    fn parse(mut self, buf: &String) -> Parser {
+    fn parse(&mut self, buf: &String) {
         for c in buf.bytes() {
-            self = self.states[self.state.to_index()](self, c);
+            self.states[self.state.to_index()](self, c);
         }
-
-        self
     }
 }
 
@@ -196,7 +181,7 @@ fn main() {
 
     let mut parser = Parser::new();
     for part in url.iter() {
-        parser = parser.parse(&part);
+        parser.parse(&part);
     }
 
     match parser.error {
@@ -214,34 +199,34 @@ mod tests {
     #[test]
     fn test_urls() {
         let mut parser = Parser::new();
-        parser = parser.parse(&"http://fast.parser.io/file/1".into());
+        parser.parse(&"http://fast.parser.io/file/1".into());
 
         assert!(parser.error.is_none());
         assert_eq!(Protocol::Http, parser.url.proto);
         assert_eq!(String::from("file/1"), parser.url.path);
 
         let mut parser = Parser::new();
-        parser = parser.parse(&"https://fast.parser.io/file/2".into());
+        parser.parse(&"https://fast.parser.io/file/2".into());
 
         assert!(parser.error.is_none());
         assert_eq!(Protocol::Https, parser.url.proto);
         assert_eq!(String::from("file/2"), parser.url.path);
 
         let mut parser = Parser::new();
-        parser = parser.parse(&"http://parser.io/another/path?query=abc".into());
+        parser.parse(&"http://parser.io/another/path?query=abc".into());
 
         assert!(parser.error.is_none());
         assert_eq!(Protocol::Http, parser.url.proto);
         assert_eq!(String::from("another/path"), parser.url.path);
 
         let mut parser = Parser::new();
-        parser = parser.parse(&"ftp://parser.io/another/path".into());
+        parser.parse(&"ftp://parser.io/another/path".into());
 
         assert!(parser.error.is_some());
         assert_eq!(String::from("bad protocol"), parser.error.unwrap());
 
         let mut parser = Parser::new();
-        parser = parser.parse(&"http://username:password@localhost:8080/path/to/resource".into());
+        parser.parse(&"http://username:password@localhost:8080/path/to/resource".into());
 
         assert!(parser.error.is_none());
         assert_eq!(Protocol::Http, parser.url.proto);
