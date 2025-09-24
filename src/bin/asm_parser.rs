@@ -57,10 +57,10 @@ struct Parser {
     error: Option<String>,
 }
 
-type StateFunc = fn(parser: Parser, c: char) -> Parser;
+type StateFunc = fn(parser: Parser, c: u8) -> Parser;
 impl Parser {
-    fn init_state(mut self, c: char) -> Self {
-        if c == 'h' {
+    fn init_state(mut self, c: u8) -> Self {
+        if c == b'h' {
             self.state = State::Proto;
             return self;
         }
@@ -70,14 +70,14 @@ impl Parser {
         self
     }
 
-    fn proto_state(mut self, c: char) -> Self {
-        if c == ':' {
+    fn proto_state(mut self, c: u8) -> Self {
+        if c == b':' {
             match self.stack.top() {
-                Some('p') => {
+                Some(b'p') => {
                     self.stack.pop_all();
                     self.state = State::Slash;
                 }
-                Some('s') => {
+                Some(b's') => {
                     self.url.proto = Protocol::Https;
                     self.stack.pop_all();
                     self.state = State::Slash;
@@ -100,10 +100,10 @@ impl Parser {
         self
     }
 
-    fn slash_state(mut self, c: char) -> Self {
-        if c == '/' {
+    fn slash_state(mut self, c: u8) -> Self {
+        if c == b'/' {
             match self.stack.top() {
-                Some('/') => {
+                Some(b'/') => {
                     self.stack.pop_all();
                     self.state = State::Domain;
                 }
@@ -124,32 +124,32 @@ impl Parser {
         self
     }
 
-    fn domain_state(mut self, c: char) -> Self {
-        if c == '/' {
+    fn domain_state(mut self, c: u8) -> Self {
+        if c == b'/' {
             self.state = State::Path;
         }
 
         self
     }
 
-    fn path_state(mut self, c: char) -> Self {
+    fn path_state(mut self, c: u8) -> Self {
         match c {
-            '?' => {
+            b'?' => {
                 self.state = State::Done;
             }
             _ => {
-                self.url.path.push(c);
+                self.url.path.push(c as char);
             }
         }
 
         self
     }
 
-    fn done_state(self, _: char) -> Parser {
+    fn done_state(self, _: u8) -> Parser {
         self
     }
 
-    fn error_state(self, _c: char) -> Parser {
+    fn error_state(self, _c: u8) -> Parser {
         self
     }
 
@@ -176,7 +176,7 @@ impl Parser {
     }
 
     fn parse(mut self, buf: &String) -> Parser {
-        for c in buf.chars() {
+        for c in buf.bytes() {
             self = self.states[self.state.to_index()](self, c);
         }
 

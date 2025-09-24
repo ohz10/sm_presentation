@@ -1,17 +1,17 @@
 pub struct Stack {
-    stack: [char; 4],
+    stack: [u8; 4],
     index: usize,
 }
 
 impl Stack {
     pub fn new() -> Stack {
         Stack {
-            stack: ['\0'; 4],
+            stack: [0; 4],
             index: usize::MAX,
         }
     }
 
-    pub fn push(self: &mut Self, c: char) -> Result<(), String> {
+    pub fn push(self: &mut Self, c: u8) -> Result<(), String> {
         match self.index {
             0..3 => {
                 self.index += 1;
@@ -31,7 +31,7 @@ impl Stack {
         self.index = usize::MAX
     }
 
-    pub fn top(self: &Self) -> Option<char> {
+    pub fn top(self: &Self) -> Option<u8> {
         match self.index {
             0..4 => Some(self.stack[self.index as usize]),
             _ => None,
