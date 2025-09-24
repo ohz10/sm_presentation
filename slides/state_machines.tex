@@ -1,0 +1,110 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usecolortheme{seagull}
+
+\title{State Machines in Rust}
+\author{Austin Gilbert}
+\begin{document}
+
+\begin{frame}
+\begin{center}
+\begin{Huge}
+State Machines in Rust
+\end{Huge}
+\end{center}
+\end{frame}
+
+\begin{frame}{Disclaimers}
+\begin{itemize}
+\item I am not representing anyone but myself, my views are my own
+\item I am not (yet) a Rust expert
+\item I am a C++ expert and Programming Languages nerd exploring Rust
+\item I am not presenting production code
+\item These are contrived examples meant to demonstrate techniques
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Overview}
+\begin{itemize}
+\item Tennis Kata
+\item Super Simple State Machine
+\item Type-State Pattern; Compile-Time State Machines
+\item Asynchronous State Machine Parser
+\end{itemize}
+\end{frame}
+
+\section{Tennis Kata}
+\begin{frame}{Tennis Kata}
+
+Model a game of tennis involving two players.
+\begin{itemize}
+\item 
+\end{itemize}
+\end{frame}
+
+
+\section{Type-State Pattern}
+\begin{frame}
+\begin{center}
+\begin{Huge}
+Type-State Pattern
+\end{Huge}
+\linebreak
+\linebreak
+\begin{Large}
+Compile-Time State Machines
+\end{Large}
+\end{center}
+\end{frame}
+
+\section{Asynchronous State Machine Parser}
+\begin{frame}
+\begin{center}
+\begin{Large}
+Asynchronous State Machine Parser
+\end{Large}
+\end{center}
+\end{frame}
+
+\begin{frame}{Asynchronous State Machine Parser}
+\begin{block}{Asynchronous here...}
+\flushright{
+	\emph{nothing} to do with \textbf{async} keyword
+}
+\end{block}
+\end{frame}
+
+\begin{frame}{Asynchronous State Machine Parser}
+\begin{block}{Asynchronous here...} comes from the fact we're parsing a byte at a time making this class of parser suitable for parsing chunked network data coming in \emph{asynchronously}
+\end{block}
+\end{frame}
+
+\begin{frame}{Asynchronous State Machine Parser}
+\begin{itemize}
+\item Extremely Simple URL Parser
+\item Parse URLs for:
+	\begin{itemize}
+	\item Protocol: {HTTP, HTTPS}
+	\item Path
+	\item ASCII-only
+	\end{itemize}
+\item Ignoring:
+	\begin{itemize}
+	\item Host and Domain Name
+	\item Parameters and Arguments
+	\item Authorization
+	\item Port Information
+	\item UTF-8
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Contact}
+\begin{center}
+\includegraphics[width=1.5in,height=1.5in]{ball_cap.png}
+\includegraphics[width=1.5in,height=1.5in]{email_qr.png}
+\includegraphics[width=1.5in,height=1.5in]{ohz_10.signal_qr.jpg}
+\end{center}
+\end{frame}
+
+\end{document}
