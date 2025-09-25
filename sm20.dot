@@ -1,4 +1,6 @@
 # Tennis Kata: 20-state state machine
+# generate: dot -Tpng -o sm20.png sm20.dot
+
 digraph Tennis {
     node [shape="circle"];
     rankdir=LR;

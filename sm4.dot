@@ -1,4 +1,6 @@
 # Tennis Kata: 4-state state machine
+# generate: circo -Tpng -o sm4.png sm4.dot
+
 digraph Game {
     node [shape="circle"];
 

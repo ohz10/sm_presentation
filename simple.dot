@@ -1,4 +1,6 @@
 # Super Simple State Machine
+# generate: dot -Tpng -o simple.png simple.dot
+
 digraph Game {
     node [shape="circle"];
     rankdir=LR
