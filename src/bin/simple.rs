@@ -1,5 +1,4 @@
 // uses type system to prevent invalid state transitions
-// however, does not account for event type
 
 enum Event {
     E1,
