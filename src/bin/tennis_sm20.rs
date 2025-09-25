@@ -65,11 +65,15 @@ impl Point for LoveFifteen {
 
 impl Point for LoveThirty {
     fn player_1(&self) -> Game {
-        Game { score: Score::FifteenThirty(self.into()), }
+        Game {
+            score: Score::FifteenThirty(self.into()),
+        }
     }
 
     fn player_2(&self) -> Game {
-        Game { score: Score::LoveForty(self.into()), }
+        Game {
+            score: Score::LoveForty(self.into()),
+        }
     }
 }
 
@@ -79,7 +83,7 @@ impl Point for LoveForty {
             score: Score::FifteenForty(self.into()),
         }
     }
-    
+
     fn player_2(&self) -> Game {
         Game {
             score: Score::Player2Won(self.into()),
@@ -141,7 +145,7 @@ impl Point for FifteenForty {
             score: Score::Player2Won(self.into()),
         }
     }
-} 
+}
 
 impl Point for ThirtyLove {
     fn player_1(&self) -> Game {
@@ -652,7 +656,7 @@ impl Game {
         match (self.score, player) {
             (Score::LoveLove(s), Player::Player1) => s.player_1(),
             (Score::LoveLove(s), Player::Player2) => s.player_2(),
-            (Score::LoveFifteen(s), Player::Player1) => s.player_1(), 
+            (Score::LoveFifteen(s), Player::Player1) => s.player_1(),
             (Score::LoveFifteen(s), Player::Player2) => s.player_2(),
             (Score::LoveThirty(s), Player::Player1) => s.player_1(),
             (Score::LoveThirty(s), Player::Player2) => s.player_2(),
