@@ -1,3 +1,9 @@
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Player {
+    Player1,
+    Player2,
+}
+
 #[derive(Debug, PartialEq)]
 enum Score {
     Love,
@@ -15,12 +21,6 @@ impl Score {
             Score::Forty => Score::Forty,
         }
     }
-}
-
-#[derive(Clone, Copy, Debug, PartialEq)]
-enum Player {
-    Player1,
-    Player2,
 }
 
 struct Game {

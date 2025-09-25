@@ -1,11 +1,10 @@
-type Score = u8;
-
 #[derive(Debug)]
 enum Player {
     Player1,
     Player2,
 }
 
+type Score = u8;
 struct Game {
     score: (Score, Score),
 }
