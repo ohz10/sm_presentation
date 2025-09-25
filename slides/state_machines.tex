@@ -34,14 +34,118 @@ State Machines in Rust
 \end{frame}
 
 \section{Tennis Kata}
-\begin{frame}{Tennis Kata}
+\begin{frame}
+\begin{center}
+\begin{Huge}
+Tennis Kata
+\end{Huge}
+\end{center}
+\end{frame}
 
-Model a game of tennis involving two players.
+\begin{frame}{What is a Kata?}
 \begin{itemize}
-\item 
+\item A simple problem you solve repeatedly
+\item Apply different patterns or idioms in each solution
+\item Enlighten ourselves about advantages and disadvantages of each technique
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Tennis Kata}
+\begin{block}{Goal}
+Model a game of tennis between two players
+\end{block}
+\begin{block}{Scoring}
+\begin{itemize}
+\item Love
+\item Fifteen
+\item Thirty
+\item Forty
+\item Game
+\end{itemize}
+\end{block}
+\begin{block}{Deuce}
+\begin{itemize}
+\item both players have 40 points before the game is over
+\item then players must win by 2 points
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Tennis Kata}
+\begin{center}
+\begin{Huge}The Naive Solution\end{Huge}
+\end{center}
+\end{frame}
+
+\begin{frame}{Tennis Kata: The Naive Solution}
+\begin{center}
+\begin{Huge}
+CODE
+\end{Huge}
+\end{center}
+\end{frame}
+
+\begin{frame}{Tennis Kata}
+\begin{center}
+\begin{Huge}The Naive Solution Refactored\end{Huge}
+\linebreak
+\begin{Large}
+Score is now Enum
+\end{Large}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\begin{Huge}
+CODE
+\end{Huge}
+\end{center}
+\end{frame}
+
+\begin{frame}{Tennis Kata}
+\begin{center}
+\begin{Huge}4-state State Machine Solution
+\end{Huge}
+\end{center}
+\end{frame}
+
+\begin{frame}{Tennis Kata: 4-state State Machine}
+\begin{center}
+\includegraphics[scale=0.45]{sm4.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{Tennis Kata: 4-state State Machine}
+\begin{center}
+\begin{Huge}
+CODE
+\end{Huge}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Tennis Kata}
+\begin{Huge}20-state State Machine Solution
+\end{Huge}
+\end{frame}
+
+\begin{frame}{Tennis Kata: 20-state State Machine}
+image
+\end{frame}
+
+\section{Super Simple State Machine}
+\begin{frame}
+\begin{center}
+\begin{Huge}
+Super Simple State Machine
+\end{Huge}
+\end{center}
+\end{frame}
+
+\begin{frame}{Super Simple State Machine}
+image
+\end{frame}
 
 \section{Type-State Pattern}
 \begin{frame}
@@ -68,13 +172,8 @@ Asynchronous State Machine Parser
 
 \begin{frame}{Asynchronous State Machine Parser}
 \begin{block}{Asynchronous here...}
-\flushright{
-	\emph{nothing} to do with \textbf{async} keyword
-}
+\emph{nothing} to do with \textbf{async} keyword
 \end{block}
-\end{frame}
-
-\begin{frame}{Asynchronous State Machine Parser}
 \begin{block}{Asynchronous here...} comes from the fact we're parsing a byte at a time making this class of parser suitable for parsing chunked network data coming in \emph{asynchronously}
 \end{block}
 \end{frame}
