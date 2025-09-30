@@ -45,6 +45,7 @@ Tennis Kata
 \begin{frame}{What is a Kata?}
 \begin{itemize}
 \item A simple problem you solve repeatedly
+\item Possibly iterative refactoring, not necessarily
 \item Apply different patterns or idioms in each solution
 \item Enlighten ourselves about advantages and disadvantages of each technique
 \end{itemize}
@@ -65,7 +66,7 @@ Model a game of tennis between two players
 \end{block}
 \begin{block}{Deuce}
 \begin{itemize}
-\item both players have 40 points before the game is over
+\item players tied with 40 points each
 \item then players must win by 2 points
 \end{itemize}
 \end{block}
@@ -85,12 +86,28 @@ CODE
 \end{center}
 \end{frame}
 
+\begin{frame}{Tennis Kata: The Naive Solution}
+\begin{block}{Pros}
+\begin{itemize}
+\item Small solution
+\item Easy to understand
+\end{itemize}
+\end{block}
+\begin{block}{Cons}
+\begin{itemize}
+\item Doesn't model the infinite nature of a game of tennis
+\item No matter what size integer you chose for Score, theoretically, it overflows
+\item Memory representation can represent invalid games
+\end{itemize}
+\end{block}
+\end{frame}
+
 \begin{frame}{Tennis Kata}
 \begin{center}
 \begin{Huge}The Naive Solution Refactored\end{Huge}
 \linebreak
 \begin{Large}
-Score is now Enum
+Use Enum for Score
 \end{Large}
 \end{center}
 \end{frame}
@@ -101,6 +118,25 @@ Score is now Enum
 CODE
 \end{Huge}
 \end{center}
+\end{frame}
+
+\begin{frame}{Tennis Kata: The Naive Solution Refactored}
+\begin{block}{Pros}
+\begin{itemize}
+\item Still pretty simple
+\item Eliminates integer overflow in Score
+\item Statefulness of tennis game begins to surface
+\end{itemize}
+\end{block}
+\begin{block}{Cons}
+\begin{itemize}
+\item As presented, we potentially continue play when game should be finished
+\item Expands memory footprint; storing who has advantage
+\item Logic is more difficult to understand
+\item Cyclomatic complexity has risen
+\item Forced into making decision about how to handle calling next() when Score is Score::Forty
+\end{itemize}
+\end{block}
 \end{frame}
 
 \begin{frame}{Tennis Kata}
@@ -124,6 +160,31 @@ CODE
 \end{center}
 \end{frame}
 
+\begin{frame}{Tennis Kata: 4-state State Machine}
+\begin{block}{Pros}
+\begin{itemize}
+\item Captures infinite nature of games correctly
+\item Easy to understand logic; cyclomatic complexity reduced
+\item Only a few states; easy to understand documentation
+\item We could add an error state to capture points after game is complete
+\item A good example of each state needing different data
+\item More memory efficient; only use what we need for each state
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Tennis Kata: 4-state State Machine}
+\begin{block}{Cons}
+\begin{itemize}
+\item We would like the type system to prevent invalid transitions
+\item Memory usage for Game not minimized; uses 3 bytes
+	\begin{itemize}
+	\item 2 bytes Score
+	\item 1 byte discriminate
+	\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
 
 \begin{frame}{Tennis Kata}
 \begin{Huge}20-state State Machine Solution
@@ -131,7 +192,7 @@ CODE
 \end{frame}
 
 \begin{frame}{Tennis Kata: 20-state State Machine}
-image
+\includegraphics[scale=0.17]{sm20.png}
 \end{frame}
 
 \section{Super Simple State Machine}
@@ -144,7 +205,12 @@ Super Simple State Machine
 \end{frame}
 
 \begin{frame}{Super Simple State Machine}
-image
+\includegraphics[scale=0.75]{simple.png}
+\begin{block}{Representing...}
+\begin{itemize}
+\item Using From trait to eliminate invalid transitions
+\end{itemize}
+\end{block}
 \end{frame}
 
 \section{Type-State Pattern}
