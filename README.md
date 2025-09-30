@@ -10,6 +10,8 @@ A presentation which introduces a few different techniques for implementing stat
     - another [state machine solution](src/bin/tennis_sm20.rs)
         - uses minimal memory
         - uses type system to prevent invalid transitions
+- [super simple state machine](src/bin/simple.rs)
+    - redemonstrate technique from tennis kata on simple state machine
 
 - [type state pattern](src/bin/type_state_pattern.rs)
     - useful idiom for implementing stateful interfaces
@@ -33,9 +35,13 @@ View the images using feh:
     $ feh -Z -F sm20.png
     $ feh -Z -f simple.png
 
-## Slides
+## PDF Slides
 
 The slides can be generated using TexMaker.
+
+### Code Slides
+
+The code slides require `bat` and `ksh` and can be viewed by running `./code_slides.sh`
 
 ## Presentation Monitor Configuration
 
