@@ -4,8 +4,7 @@ enum Player {
 }
 
 trait Point {
-    fn player_1(&self) -> Game;
-    fn player_2(&self) -> Game;
+    fn point(&self, player: &Player) -> Game;
 }
 
 struct LoveLove;
@@ -36,265 +35,241 @@ struct Player2Won;
 struct Error;
 
 impl Point for LoveLove {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FifteenLove(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::LoveFifteen(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FifteenLove(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::LoveFifteen(self.into()),
+            },
         }
     }
 }
 
 impl Point for LoveFifteen {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FifteenFifteen(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::LoveThirty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FifteenFifteen(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::LoveThirty(self.into()),
+            },
         }
     }
 }
 
 impl Point for LoveThirty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FifteenThirty(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::LoveForty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FifteenThirty(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::LoveForty(self.into()),
+            },
         }
     }
 }
 
 impl Point for LoveForty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FifteenForty(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::Player2Won(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FifteenForty(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::Player2Won(self.into()),
+            },
         }
     }
 }
 
 impl Point for FifteenLove {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::ThirtyLove(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::FifteenFifteen(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::ThirtyLove(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::FifteenFifteen(self.into()),
+            },
         }
     }
 }
 
 impl Point for FifteenFifteen {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::ThirtyFifteen(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::FifteenThirty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::ThirtyFifteen(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::FifteenThirty(self.into()),
+            },
         }
     }
 }
 
 impl Point for FifteenThirty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::ThirtyThirty(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::FifteenForty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::ThirtyThirty(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::FifteenForty(self.into()),
+            },
         }
     }
 }
 
 impl Point for FifteenForty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::ThirtyForty(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::Player2Won(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::ThirtyForty(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::Player2Won(self.into()),
+            },
         }
     }
 }
 
 impl Point for ThirtyLove {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FortyLove(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::ThirtyFifteen(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FortyLove(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::ThirtyFifteen(self.into()),
+            },
         }
     }
 }
 
 impl Point for ThirtyFifteen {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FortyFifteen(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::ThirtyThirty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FortyFifteen(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::ThirtyThirty(self.into()),
+            },
         }
     }
 }
 
 impl Point for ThirtyThirty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::FortyThirty(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::ThirtyForty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::FortyThirty(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::ThirtyForty(self.into()),
+            },
         }
     }
 }
 
 impl Point for ThirtyForty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Duece(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::Player2Won(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::Duece(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::Player2Won(self.into()),
+            },
         }
     }
 }
 
 impl Point for FortyLove {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Player1Won(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::FortyFifteen(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::Player1Won(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::FortyFifteen(self.into()),
+            },
         }
     }
 }
 
 impl Point for FortyFifteen {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Player1Won(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::FortyThirty(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::Player1Won(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::FortyThirty(self.into()),
+            },
         }
     }
 }
 
 impl Point for FortyThirty {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Player1Won(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::Duece(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::Player1Won(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::Duece(self.into()),
+            },
         }
     }
 }
 
 impl Point for Duece {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::AdvantagePlayer1(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::AdvantagePlayer2(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::AdvantagePlayer1(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::AdvantagePlayer2(self.into()),
+            },
         }
     }
 }
 
 impl Point for AdvantagePlayer1 {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Player1Won(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::Duece(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::Player1Won(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::Duece(self.into()),
+            },
         }
     }
 }
 
 impl Point for AdvantagePlayer2 {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Duece(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
-        Game {
-            score: Score::Player2Won(self.into()),
+    fn point(&self, player: &Player) -> Game {
+        match player {
+            Player::Player1 => Game {
+                score: Score::Duece(self.into()),
+            },
+            Player::Player2 => Game {
+                score: Score::Player2Won(self.into()),
+            },
         }
     }
 }
 
 impl Point for Player1Won {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Error(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
+    fn point(&self, _: &Player) -> Game {
         Game {
             score: Score::Error(self.into()),
         }
@@ -302,13 +277,7 @@ impl Point for Player1Won {
 }
 
 impl Point for Player2Won {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Error(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
+    fn point(&self, _: &Player) -> Game {
         Game {
             score: Score::Error(self.into()),
         }
@@ -316,13 +285,7 @@ impl Point for Player2Won {
 }
 
 impl Point for Error {
-    fn player_1(&self) -> Game {
-        Game {
-            score: Score::Error(self.into()),
-        }
-    }
-
-    fn player_2(&self) -> Game {
+    fn point(&self, _: &Player) -> Game {
         Game {
             score: Score::Error(self.into()),
         }
@@ -653,49 +616,28 @@ impl Game {
     }
 
     fn point(self, player: &Player) -> Game {
-        match (self.score, player) {
-            (Score::LoveLove(s), Player::Player1) => s.player_1(),
-            (Score::LoveLove(s), Player::Player2) => s.player_2(),
-            (Score::LoveFifteen(s), Player::Player1) => s.player_1(),
-            (Score::LoveFifteen(s), Player::Player2) => s.player_2(),
-            (Score::LoveThirty(s), Player::Player1) => s.player_1(),
-            (Score::LoveThirty(s), Player::Player2) => s.player_2(),
-            (Score::LoveForty(s), Player::Player1) => s.player_1(),
-            (Score::LoveForty(s), Player::Player2) => s.player_2(),
-            (Score::FifteenLove(s), Player::Player1) => s.player_1(),
-            (Score::FifteenLove(s), Player::Player2) => s.player_2(),
-            (Score::FifteenFifteen(s), Player::Player1) => s.player_1(),
-            (Score::FifteenFifteen(s), Player::Player2) => s.player_2(),
-            (Score::FifteenThirty(s), Player::Player1) => s.player_1(),
-            (Score::FifteenThirty(s), Player::Player2) => s.player_2(),
-            (Score::FifteenForty(s), Player::Player1) => s.player_1(),
-            (Score::FifteenForty(s), Player::Player2) => s.player_2(),
-            (Score::ThirtyLove(s), Player::Player1) => s.player_1(),
-            (Score::ThirtyLove(s), Player::Player2) => s.player_2(),
-            (Score::ThirtyFifteen(s), Player::Player1) => s.player_1(),
-            (Score::ThirtyFifteen(s), Player::Player2) => s.player_2(),
-            (Score::ThirtyThirty(s), Player::Player1) => s.player_1(),
-            (Score::ThirtyThirty(s), Player::Player2) => s.player_2(),
-            (Score::ThirtyForty(s), Player::Player1) => s.player_1(),
-            (Score::ThirtyForty(s), Player::Player2) => s.player_2(),
-            (Score::FortyLove(s), Player::Player1) => s.player_1(),
-            (Score::FortyLove(s), Player::Player2) => s.player_2(),
-            (Score::FortyFifteen(s), Player::Player1) => s.player_1(),
-            (Score::FortyFifteen(s), Player::Player2) => s.player_2(),
-            (Score::FortyThirty(s), Player::Player1) => s.player_1(),
-            (Score::FortyThirty(s), Player::Player2) => s.player_2(),
-            (Score::Duece(s), Player::Player1) => s.player_1(),
-            (Score::Duece(s), Player::Player2) => s.player_2(),
-            (Score::AdvantagePlayer1(s), Player::Player1) => s.player_1(),
-            (Score::AdvantagePlayer1(s), Player::Player2) => s.player_2(),
-            (Score::AdvantagePlayer2(s), Player::Player1) => s.player_1(),
-            (Score::AdvantagePlayer2(s), Player::Player2) => s.player_2(),
-            (Score::Player1Won(s), Player::Player1) => s.player_1(),
-            (Score::Player1Won(s), Player::Player2) => s.player_2(),
-            (Score::Player2Won(s), Player::Player1) => s.player_1(),
-            (Score::Player2Won(s), Player::Player2) => s.player_2(),
-            (Score::Error(s), Player::Player1) => s.player_1(),
-            (Score::Error(s), Player::Player2) => s.player_2(),
+        match self.score {
+            Score::LoveLove(s) => s.point(player),
+            Score::LoveFifteen(s) => s.point(player),
+            Score::LoveThirty(s) => s.point(player),
+            Score::LoveForty(s) => s.point(player),
+            Score::FifteenLove(s) => s.point(player),
+            Score::FifteenFifteen(s) => s.point(player),
+            Score::FifteenThirty(s) => s.point(player),
+            Score::FifteenForty(s) => s.point(player),
+            Score::ThirtyLove(s) => s.point(player),
+            Score::ThirtyFifteen(s) => s.point(player),
+            Score::ThirtyThirty(s) => s.point(player),
+            Score::ThirtyForty(s) => s.point(player),
+            Score::FortyLove(s) => s.point(player),
+            Score::FortyFifteen(s) => s.point(player),
+            Score::FortyThirty(s) => s.point(player),
+            Score::Duece(s) => s.point(player),
+            Score::AdvantagePlayer1(s) => s.point(player),
+            Score::AdvantagePlayer2(s) => s.point(player),
+            Score::Player1Won(s) => s.point(player),
+            Score::Player2Won(s) => s.point(player),
+            Score::Error(s) => s.point(player),
         }
     }
 }
