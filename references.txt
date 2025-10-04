@@ -4,3 +4,6 @@
 	- https://hoverbear.org/blog/rust-state-machine-pattern/
 - Improve Your Rust APIs with Type State Pattern, Let's Get Rusty
 	- https://youtu.be/_ccDqRTx-JU 
+- EnumTrait crate
+    - https://crates.io/crates/enumtrait
+    - benchmarks of a virtual call vs. match 
