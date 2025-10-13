@@ -47,7 +47,7 @@ Tennis Kata
 \item A simple problem you solve repeatedly
 \item Possibly iterative refactoring, not necessarily
 \item Apply different patterns or idioms in each solution
-\item Enlighten ourselves about advantages and disadvantages of each technique
+\item Enlighten ourselves about advantages and disadvantages of each approach
 \end{itemize}
 \end{frame}
 
@@ -130,11 +130,12 @@ CODE
 \end{block}
 \begin{block}{Cons}
 \begin{itemize}
-\item As presented, we potentially continue play when game should be finished
+\item Memory representation can represent invalid games
+\item We potentially continue play when game should be finished
 \item Expands memory footprint; storing who has advantage
 \item Logic is more difficult to understand
 \item Cyclomatic complexity has risen
-\item Forced into making decision about how to handle calling next() when Score is Score::Forty
+\item Forced into making decision about how to handle calling \textbf{next()} when \textbf{Score} is \textbf{Score::Forty}
 \end{itemize}
 \end{block}
 \end{frame}
