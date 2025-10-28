@@ -10,6 +10,8 @@ A presentation which introduces a few different techniques for implementing stat
     - another [state machine solution](src/bin/tennis_sm20.rs)
         - uses minimal memory
         - uses type system to prevent invalid transitions
+    - iterating on 20-state solution to replace big match statement with [a dynamic dyn call](src/bin/tennis_sm20_enumtrait.rs)
+    - iterating on 20-state solution to replace big match statement with [a table lookup](src/bin/tennis_sm20_table.rs)
 - [super simple state machine](src/bin/simple.rs)
     - redemonstrate technique from tennis kata on simple state machine
 
