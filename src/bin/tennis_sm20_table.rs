@@ -57,6 +57,7 @@ const SCORES: [&str; 21] = [
     "Error detected",
 ];
 
+// NOTE: can anyone suggest an optimization I'm not doing here?
 const STATE_TRANSITIONS: [[Score; 2] ; 21] = [
     // ------------------------------------------------------------------------------------------------------
     // Point to Player1                             Point to Player2                           Current Score
